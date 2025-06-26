@@ -7,13 +7,13 @@ interface User{
   subtitle:string,
   views:string,
   age:string,
-  duration:string,
-  quote:string
+  duration?:string,
+  quote?:string
   thumbnail:string
   toggle:boolean
 }
 
-const Mainpage:FC<User> = ({title,subtitle,views,age,duration,quote,thumbnail,toggle}) => {
+const Mainpage:FC<User> = ({title,subtitle,views,age,thumbnail,toggle}) => {
   return (
     <div className={`  p-6 flex-center flex-col gap-y-3 ${toggle ? `  md:h-80 md:flex-center md:flex-col md:justify-start  lg:flex-center lg:justify-start lg:flex-col`:` md:flex-center md:flex-col md:justify-start  lg:flex-center lg:flex-col  lg:justify-start`}`}>
       {/* Thumbnail */}
