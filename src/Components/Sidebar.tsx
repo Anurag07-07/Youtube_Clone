@@ -1,3 +1,4 @@
+'use client'
 import React, { FC } from 'react'
 import { IoHomeSharp } from "react-icons/io5";
  import { SiYoutubeshorts } from "react-icons/si";
