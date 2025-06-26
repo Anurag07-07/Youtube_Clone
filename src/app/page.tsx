@@ -210,48 +210,76 @@ const videoThumbnails = [
   }
 ];
 
-const page = () => {
-  const [toogle,setToogle] = useState<boolean>(false)
+export default function Page() {
+  const [toggle, setToggle] = useState<boolean>(false);
+
   return (
     <>
-    <nav className=' flex w-full h-16 bg-gray-900/75  justify-around flex-center md:flex md:justify-between md:px-11 z-50'>
-    {/* Search Bar */}
-    <TiThMenu size={28} onClick={()=>setToogle(prev=>!prev)} className=' hidden md:block md:z-50'  ></TiThMenu>
-    <div className=' flex-center relative'>
-    <input type="text" className='  rounded-2xl shadow-sm bg-gray-800/85   px-3 h-8 md:w-80' placeholder='Search' />
-    <CiSearch size={24} className=' absolute right-0 rounded-r-3xl h-8  bg-gray-700 text-white  '></CiSearch>
-    </div>
+      {/* Navbar */}
+      <nav className="flex w-full h-16 bg-black items-center justify-between px-4 md:px-11 z-50">
+        {/* Menu Icon */}
+        <TiThMenu
+          size={28}
+          onClick={() => setToggle(prev => !prev)}
+          className="hidden md:block cursor-pointer"
+        />
 
-    {/* NotificationCount */}
-    <div className=' relative w-8'>
-      <div>
-        <GoBell size={32}></GoBell>
-      </div>
-      <div className=' absolute w-6 text-center -top-1 -right-1 bg-red-600 text-white border rounded-full' >
-        {
-          videoThumbnails.length > 9 ? `9+` : `${videoThumbnails.length}` 
-        }
-      </div>
-    </div>
+        {/* Search Bar */}
+        <div className="flex items-center relative w-full max-w-md mx-4">
+          <input
+            type="text"
+            className="w-full rounded-2xl shadow-sm bg-black px-4 h-9 text-white"
+            placeholder="Search"
+          />
+          <CiSearch size={24} className="absolute right-2 text-white cursor-pointer" />
+        </div>
 
-    {/* Log in Icon */}
-    <FaUserCircle size={28}></FaUserCircle>
-    
-    </nav>
-    <div className=' transition-all duration-700 md:flex z-10  top-16 w-full'>
-      <div className={` w-full h-20 fixed bottom-0 bg-gray-900  ${toogle ? `lg:w-96 lg:h-screen lg:bg-gray-800/45 > md:w-96 md:static md:h-screen`:` lg:w-0  lg:h-screen md:static md:left-0 md:w-28 md:h-screen`} transition-all duration-700`}>
-        <Sidebar toggle={toogle}></Sidebar>
+        {/* Notifications */}
+        <div className="relative mr-4">
+          <GoBell size={28} className="text-white" />
+          <div className="absolute -top-2 -right-2 bg-red-600 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
+            {videoThumbnails.length > 9 ? '9+' : videoThumbnails.length}
+          </div>
+        </div>
+
+        {/* User Icon */}
+        <FaUserCircle size={28} className="text-white" />
+      </nav>
+
+      {/* Layout */}
+      <div className="flex">
+        {/* Sidebar */}
+        <div
+          className={`transition-all duration-700 ease-in-out bg-black fixed bottom-0 w-full h-20 md:static md:h-screen ${
+            toggle
+              ? 'md:w-96 lg:w-96 lg:bg-black'
+              : 'md:w-28 lg:w-0 overflow-hidden'
+          }`}
+        >
+          <Sidebar toggle={toggle} />
+        </div>
+
+        {/* Main Grid */}
+        <div
+          className={`flex-1 transition-all duration-700 ease-in-out overflow-y-auto p-4 grid gap-4 ${
+            toggle ? 'lg:grid-cols-3' : 'lg:grid-cols-4'
+          } md:grid-cols-2`}
+        >
+          {videoThumbnails.map((d) => (
+            <Mainpage
+              key={d.id}
+              title={d.title}
+              subtitle={d.subtitle}
+              views={d.views}
+              age={d.age}
+              duration={d.duration}
+              quote={d.quote}
+              thumbnail={d.thumbnail}
+              toggle={toggle}
+            />
+          ))}
+        </div>
       </div>
-      <div className={` h-screen w-full bg-gray-900/5 grid overflow-y-auto no-scrollbar   mb-20 md:grid md:grid-cols-2 lg:grid lg:grid-cols-3 md:mb-0 md:overflow-x-hidden   ${toogle ? `  lg:w-screen lg:h-screen`:` lg:bg-gray-800/45 lg:h-screen lg:w-screen lg:grid lg:grid-cols-4 `} transition-all duration-700`}>
-        {
-          videoThumbnails.map((d)=>{
-            return <Mainpage key={d.id} title={d.title} subtitle={d.subtitle} views={d.views} age={d.age} duration={d.duration} quote={d.quote} thumbnail = {d.thumbnail} toggle={toogle}></Mainpage>
-          })
-        }
-      </div>
-    </div>
     </>
-  )
+  );
 }
-
-export default page

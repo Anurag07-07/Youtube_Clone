@@ -1,4 +1,3 @@
-'use client'
 import React, { FC } from 'react'
 import { IoHomeSharp } from "react-icons/io5";
  import { SiYoutubeshorts } from "react-icons/si";
@@ -7,14 +6,14 @@ import { CiClock1 } from "react-icons/ci";
 import Link from 'next/link';
 
 interface Toogling{
-  toogle:boolean
+  toggle:boolean
 }
 
 const Sidebar:FC<Toogling> = ({toggle}) => {
 
   
   return (
-    <div className={` flex justify-center items-center w-full h-full bg-gray-900/5 md:min-h-max`}>
+    <div className={` flex justify-center items-center w-full h-full bg-black md:min-h-max`}>
     <div className={`  flex justify-around w-full md:fixed  ${toggle ? ` md:flex md:flex-col  md:w-58  md:h-screen `:` md:w-full md:h-screen md:flex md:flex-col md:z-50 `}`}>
       <div className={`${toggle ?` md:flex-center md:justify-between md:px-11`:`  flex-center flex-col lg:hidden `}`}>
         <Link href={'/'}>
